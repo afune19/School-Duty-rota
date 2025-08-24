@@ -11,14 +11,14 @@ if (isset($_GET['delete_id'])) {
     $id = intval($_GET['delete_id']);
     $conn->query("DELETE FROM teachers WHERE id=$id");
     $_SESSION['msg'] = "Teacher #$id deleted.";
-    header("Location: index.php?modal=1"); exit;
+    header("Location: dashboard.php?modal=1"); exit;
 }
 
 // Delete all teachers
 if (isset($_POST['delete_all'])) {
     $conn->query("TRUNCATE TABLE teachers");
     $_SESSION['msg'] = "All teachers deleted.";
-    header("Location: index.php?modal=1"); exit;
+    header("Location: dashboard.php?modal=1"); exit;
 }
 
 // CSV upload (name,gender)
@@ -43,7 +43,7 @@ if (isset($_POST['upload'])) {
     } else {
         $_SESSION['msg'] = "CSV upload failed or file empty.";
     }
-    header("Location: index.php"); exit;
+    header("Location: dashboard.php"); exit;
 }
 
 // Generate rota
@@ -67,7 +67,7 @@ $fems  = array_values(array_filter($teachers, fn($t) => $t['gender'] === 'F'));
 
 if (count($males) < 1 || count($fems) < 1) {
     $_SESSION['msg'] = "Need at least one male and one female teacher.";
-    header("Location: index.php"); exit;
+    header("Location: dashboard.php"); exit;
 }
 
     /* ================================
@@ -138,7 +138,7 @@ if (count($males) < 1 || count($fems) < 1) {
     }
 
     $_SESSION['msg'] = "Duty rota generated.";
-    header("Location: index.php"); exit;
+    header("Location: dashboard.php"); exit;
 }
 
 // Export Weekly PDF
